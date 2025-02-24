@@ -1,18 +1,26 @@
-import {nanoid} from nanoid       //to generate random id
-const {URL} = require('../models/models')
+const { URL } = require("../models/model");
+async function genShortID(req, res) {
+  const { nanoid } = await import('nanoid'); // Dynamic import works due to nonoid now 
+  const body = req.body;                     //being an esm which uses import
 
-async function genShortID(req , res) {
-    const body=req.body
-    if (!body.url) {
-        return res.status(400).json({ msg: "URL not found" }); // Return to prevent further execution
-    }
-const nanoID = nanoid(8) ;
-await URL.create({
-    shortID : nanoID ,
-     ID:body.url ,
-     visit : []
-})
+  if (!body.id) {
+    return res.status(400).json({ msg: "URL not found" });
+  }
 
-return res.status(200).json({id:nanoID})
+  try {
+    const shortID = nanoid(6);
+
+    await URL.create({
+      shortID: shortID,
+      ID: body.id,
+      visit: [{ timestamp: Date.now() }],
+    });
+
+    return res.status(200).json({ id: shortID });
+  } catch (error) {
+    console.error("Database error:", error);
+    return res.status(500).json({ msg: "Server error" });
+  }
 }
-module.exports = {genShortID}
+
+module.exports = { genShortID };

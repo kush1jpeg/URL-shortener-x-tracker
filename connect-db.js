@@ -4,4 +4,6 @@ async function connectdb(url) {
    return mongoose.connect(url)
 }
 
-module.exports = {connectdb} 
+module.exports = connectdb  
+
+//{}export only objects like this
