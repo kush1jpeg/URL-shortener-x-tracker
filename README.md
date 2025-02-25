@@ -24,15 +24,9 @@ A simple yet powerful URL shortener with tracking functionality, built using Nod
    ```sh
    npm install
    ```
-3. Set up environment variables:
-   - Create a `.env` file in the root directory
-   - Add the following:
-     ```env
-     MONGO_URI=your_mongodb_connection_string
-     BASE_URL=http://localhost:5000 # Change as per deployment
-     PORT=5000
-     ```
-4. Start the server:
+
+   
+3. Start the server:
    ```sh
    npm start
    ```
